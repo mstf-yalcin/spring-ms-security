@@ -1,0 +1,54 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+  application:
+    name: auth-server
+  jpa:
+    hibernate:
+      ddl-auto: create
+jwt:
+  secret:
+    key: QVNkYXNkYXlsaW5BU2Rhc2RhQXNhc2RzZXZpbWZhc3NkZnNkZmRzZnN5b3J1bWRhc2RhZA==
+  expire:
+    time: '30000'
+  refresh-token:
+    expire:
+      time: '60000'
+
+
+server:
+  port: 8075
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+  health:
+    liveness-state:
+      enabled: true
+    readiness-state:
+      enabled: true
+  info:
+    env:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
